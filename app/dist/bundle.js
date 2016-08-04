@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ab1145be886f2ff407ed"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "385552cbfd03da16831d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -9168,7 +9168,7 @@
 	
 	var _ProductsPage2 = _interopRequireDefault(_ProductsPage);
 	
-	var _products = __webpack_require__(643);
+	var _products = __webpack_require__(644);
 	
 	var _products2 = _interopRequireDefault(_products);
 	
@@ -34075,9 +34075,9 @@
 	
 	var _ProductForm2 = _interopRequireDefault(_ProductForm);
 	
-	var _PricePointInput = __webpack_require__(642);
+	var _ProductRow = __webpack_require__(642);
 	
-	var _PricePointInput2 = _interopRequireDefault(_PricePointInput);
+	var _ProductRow2 = _interopRequireDefault(_ProductRow);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -34090,21 +34090,6 @@
 	  }
 	
 	  (0, _createClass3.default)(ProductsPage, [{
-	    key: 'toggleForm',
-	    value: function toggleForm() {
-	      this.props.dispatch((0, _products.toggleCreateProduct)());
-	    }
-	  }, {
-	    key: 'editProduct',
-	    value: function editProduct(id) {
-	      this.props.dispatch((0, _products.showEditProduct)(id));
-	    }
-	  }, {
-	    key: 'addPrice',
-	    value: function addPrice(id) {
-	      this.props.dispatch((0, _products.showAddPrice)(id));
-	    }
-	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.props.dispatch((0, _products.fetchProducts)());
@@ -34119,7 +34104,10 @@
 	        { className: 'container' },
 	        this.props.products.create ? _react2.default.createElement(_ProductForm2.default, { dispatch: this.props.dispatch, errors: this.props.products.errors }) : _react2.default.createElement(
 	          'button',
-	          { onClick: this.toggleForm.bind(this), className: 'btn btn-default pull-right btn-sm' },
+	          { className: 'btn btn-default pull-right btn-sm',
+	            onClick: function onClick() {
+	              return _this2.props.dispatch((0, _products.toggleCreateProduct)());
+	            } },
 	          'Add Product'
 	        ),
 	        _react2.default.createElement('br', null),
@@ -34163,63 +34151,28 @@
 	            'tbody',
 	            null,
 	            this.props.products.list.map(function (product) {
-	              return _react2.default.createElement(
+	              var showEditForm = _this2.props.products.edit === product.id;
+	              return showEditForm ? _react2.default.createElement(
 	                'tr',
 	                { key: product.id },
-	                _this2.props.products.edit === product.id ? _react2.default.createElement(
+	                _react2.default.createElement(
 	                  'td',
 	                  { colSpan: '5' },
-	                  _react2.default.createElement(_ProductForm2.default, { product: product,
-	                    dispatch: _this2.props.dispatch,
-	                    errors: _this2.props.products.errors })
-	                ) : [_react2.default.createElement(
-	                  'td',
-	                  { key: 'name' },
-	                  product.name
-	                ), _react2.default.createElement(
-	                  'td',
-	                  { key: 'desc' },
-	                  product.description
-	                ), _react2.default.createElement(
-	                  'td',
-	                  { key: 'tags' },
-	                  product.tags.join(', ')
-	                ), _react2.default.createElement(
-	                  'td',
-	                  { key: 'prices' },
-	                  _react2.default.createElement(
-	                    'ul',
-	                    null,
-	                    product.prices.map(function (price) {
-	                      return _react2.default.createElement(
-	                        'li',
-	                        { key: product.id + '_' + price.currency },
-	                        price.amount,
-	                        ' ',
-	                        price.currency
-	                      );
-	                    })
-	                  ),
-	                  _this2.props.products.setPrice === product.id && _react2.default.createElement(_PricePointInput2.default, { setPrice: function setPrice(price) {
-	                      return _this2.props.dispatch((0, _products.setPrice)(product.id, price));
-	                    },
-	                    showSaveButton: true,
-	                    errors: _this2.props.products.errors })
-	                ), _react2.default.createElement(
-	                  'td',
-	                  { key: 'action' },
-	                  _react2.default.createElement(
-	                    'button',
-	                    { onClick: _this2.editProduct.bind(_this2, product.id), className: 'btn btn-default btn-sm' },
-	                    'Edit'
-	                  ),
-	                  _react2.default.createElement(
-	                    'button',
-	                    { onClick: _this2.addPrice.bind(_this2, product.id), className: 'btn btn-default btn-sm' },
-	                    'Add Price'
-	                  )
-	                )]
-	              );
+	                  _react2.default.createElement(_ProductForm2.default, { product: product, dispatch: _this2.props.dispatch, errors: _this2.props.products.errors })
+	                )
+	              ) : _react2.default.createElement(_ProductRow2.default, { key: product.id,
+	                product: product,
+	                showSetPrice: _this2.props.products.setPrice === product.id,
+	                errors: _this2.props.products.errors,
+	                setPrice: function setPrice(id, price) {
+	                  return _this2.props.dispatch((0, _products.setPrice)(id, price));
+	                },
+	                editProduct: function editProduct(id) {
+	                  return _this2.props.dispatch((0, _products.showEditProduct)(id));
+	                },
+	                addPrice: function addPrice(id) {
+	                  return _this2.props.dispatch((0, _products.showAddPrice)(id));
+	                } });
 	            })
 	          )
 	        )
@@ -35910,6 +35863,103 @@
 	  value: true
 	});
 	
+	var _react = __webpack_require__(387);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _PricePointInput = __webpack_require__(643);
+	
+	var _PricePointInput2 = _interopRequireDefault(_PricePointInput);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ProductRow = function ProductRow(props) {
+	  return _react2.default.createElement(
+	    'tr',
+	    null,
+	    _react2.default.createElement(
+	      'td',
+	      { key: 'name' },
+	      props.product.name
+	    ),
+	    _react2.default.createElement(
+	      'td',
+	      { key: 'desc' },
+	      props.product.description
+	    ),
+	    _react2.default.createElement(
+	      'td',
+	      { key: 'tags' },
+	      props.product.tags.join(', ')
+	    ),
+	    _react2.default.createElement(
+	      'td',
+	      { key: 'prices' },
+	      _react2.default.createElement(
+	        'ul',
+	        null,
+	        props.product.prices.map(function (price) {
+	          return _react2.default.createElement(
+	            'li',
+	            { key: props.product.id + '_' + price.currency },
+	            price.amount,
+	            ' ',
+	            price.currency
+	          );
+	        })
+	      ),
+	      props.showSetPrice && _react2.default.createElement(_PricePointInput2.default, { setPrice: function setPrice(price) {
+	          return props.setPrice(props.product.id, price);
+	        },
+	        showSaveButton: true,
+	        errors: props.errors })
+	    ),
+	    _react2.default.createElement(
+	      'td',
+	      { key: 'action' },
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: function onClick() {
+	            return props.editProduct(props.product.id);
+	          }, className: 'btn btn-default btn-sm' },
+	        'Edit'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: function onClick() {
+	            return props.addPrice(props.product.id);
+	          }, className: 'btn btn-default btn-sm' },
+	        'Add Price'
+	      )
+	    )
+	  );
+	};
+	
+	ProductRow.propTypes = {
+	  product: _react2.default.PropTypes.object.isRequired,
+	  showSetPrice: _react2.default.PropTypes.bool.isRequired,
+	  editProduct: _react2.default.PropTypes.func.isRequired,
+	  addPrice: _react2.default.PropTypes.func.isRequired,
+	  errors: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string).isRequired
+	};
+	
+	exports.default = ProductRow;
+	
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(631); if (makeExportsHot(module, __webpack_require__(387))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ProductRow.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(308)(module)))
+
+/***/ },
+/* 643 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(309), RootInstanceProvider = __webpack_require__(317), ReactMount = __webpack_require__(319), React = __webpack_require__(387); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _getPrototypeOf = __webpack_require__(405);
 	
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -35990,7 +36040,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(308)(module)))
 
 /***/ },
-/* 643 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(309), RootInstanceProvider = __webpack_require__(317), ReactMount = __webpack_require__(319), React = __webpack_require__(387); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {

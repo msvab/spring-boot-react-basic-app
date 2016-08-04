@@ -49,10 +49,7 @@ export default class ProductForm extends React.Component {
     return (
         <form onSubmit={::this.saveProduct} className="form">
           <legend>
-            {this.props.product.id
-                ? `Edit Product ${this.props.product.name}`
-                : 'Create New Product'
-            }
+            {this.props.product.id ? `Edit Product ${this.props.product.name}` : 'Create New Product' }
           </legend>
           <div className="form-group-sm">
             <label>Product Name</label>
