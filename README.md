@@ -1,4 +1,5 @@
-# Basic projects API using Spring Boot
+## Basic projects API using Spring Boot
+API is located in `api` directory
 
 ## Requirements:
 * Maven 3
@@ -30,3 +31,19 @@ You can use different path with `mvn spring-boot:run -Ddatabase.path=/mnt/databa
 * set price points
 
   `curl -i -X PUT -H "Content-Type:application/json" http://localhost:8080/products/102/prices/EUR -d '{"amount":"3.67"}'`
+
+## Tiny React client
+app is located in `app` directory
+
+### Usage:
+Open index.html in `app/dist` directory. E.g `open app/dist/index.html`
+
+### Build requirements:
+* Node 6
+
+### Build:
+* `npm install`
+* `npm run-script build`
+
+### Run with dev tools enabled:
+`npm run-script dev`
