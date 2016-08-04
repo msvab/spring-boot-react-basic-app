@@ -1,6 +1,7 @@
 package net.svab.project.domain;
 
 import net.svab.project.domain.validation.SinglePricePerCurrencyCheck;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,8 @@ public class Product {
     @GeneratedValue(strategy = SEQUENCE, generator = "product_id_seq")
     private Long id;
 
-    @NotBlank(message = "error.product.name")
+    @NotBlank(message = "error.product.name.blank")
+    @Length(max = 200, message = "error.product.name.long")
     private String name;
 
     @NotBlank(message = "error.product.description")
