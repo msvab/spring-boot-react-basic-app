@@ -36,7 +36,8 @@ You can use different path with `mvn spring-boot:run -Ddatabase.path=/mnt/databa
 app is located in `app` directory
 
 ### Usage:
-Open index.html in `app/dist` directory. E.g `open app/dist/index.html`
+* Have the API running on port 8080
+* Open index.html in `app/dist` directory. E.g `open app/dist/index.html`
 
 ### Build requirements:
 * Node 6
