@@ -1,0 +1,29 @@
+@import "../vendor/bootstrap-3.3.6/stylesheets/bootstrap";
+
+div.container {
+  max-width: 1000px;
+
+  input, button, textarea {
+    margin-right: 0.3em;
+    margin-left: 0.3em;
+  }
+
+  span.margin-right {
+    display: inline-block;
+    margin-right: 50px;
+  }
+
+  form {
+    padding: 1em 0;
+  }
+
+  p {
+    padding: 0.4em;
+  }
+
+  td ul {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+  }
+}
